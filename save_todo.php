@@ -1,9 +1,6 @@
 <?php
-ini_set('display_errors', 0);
-ini_set('display_startup_errors', 0);
-error_reporting(E_ALL);
-
-header('Content-Type: application/json');
+// save_todo.php
+header('Content-Type: text/plain');
 
 try {
     // DB接続
@@ -15,34 +12,46 @@ try {
 
     // 接続エラーチェック
     if ($db->connect_error) {
-        echo $mysqli->connect_error;
+        echo $db->connect_error;
         exit();
     }
-    $db->set_charset("utf8");
-    // SQLの準備
-    $stmt = $db->prepare("SELECT * FROM UserTask WHERE userID = ?");
-    $userID = 1224;
-    $stmt->bind_param("i", $userID);
 
-    // クエリの実行
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // POSTデータの受け取り
+    // $type = $db->real_escape_string($_POST['type'] ?? '');
 
-    // 結果の取得
-    $todo = [];
-    while ($row = $result->fetch_assoc()) {
-        $todo[] = $row;
+    # 以下、missionとcontentがdbになく、代わりにtodolistがdbにあるため保留
+    # $mission = $db->real_escape_string($_POST['mission'] ?? '');
+    # $content = $db->real_escape_string($_POST['content'] ?? '');
+    $todolist = $db->real_escape_string($_POST['mission'] ?? '');
+    $amount = $db->real_escape_string($_POST['amount'] ?? '');
+    $startdate = $db->real_escape_string($_POST['startdate'] ?? '');
+    $enddate = $db->real_escape_string($_POST['enddate'] ?? '');
+    // バリデーション
+    if (empty($todolist) || empty($amount)) {
+        throw new Exception('必須項目が不足しています');
     }
 
-    // JSONとして出力
-    echo json_encode($todo);
+    // SQLセット
+    // $stmt = $db->prepare("INSERT INTO UserTask (userID, todolist, addgold, startdate, enddate, type) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $db->prepare("INSERT INTO UserTask (userID, todolist, addgold, startdate, enddate) VALUES (?, ?, ?, ?, ?)");
 
-    // 接続を閉じる
+    // 値のセット
+    $userID = 1224;
+    // $stmt->bind_param("issssss", $userID, $mission, $amount, $startdate, $enddate, $type);
+    $stmt->bind_param("issss", $userID, $todolist, $amount, $startdate, $enddate);
+
+    // 実行
+    $res = $stmt->execute();
+    if ($res) {
+        echo "登録しました";
+    } else {
+        throw new Exception('データベースへの保存に失敗しました: ' . $stmt->error);
+    }
+
+    // ステートメントと接続を閉じる
     $stmt->close();
     $db->close();
 } catch (Exception $e) {
-    // エラー時のレスポンス
-    http_response_code(500);
-    echo json_encode(['error' => $e->getMessage()]);
+    echo "エラー: " . $e->getMessage();
 }
 ?>
