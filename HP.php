@@ -169,36 +169,6 @@
 
 <body>
 
-<?php
-// POSTデータが送信されている場合、変数に格納
-session_start();
-$con = mysqli_connect('localhost','j431miyo','') or die("接続失敗");
- mysqli_select_db($con, 'j431miyoP') or die("選択失敗");
- mysqli_query($con, 'SET NAMES utf8');
-
-$sql = "SELECT * FROM HP";
-$res = mysqli_query($con, $sql) or die("エラー");
-
-while ($db = mysqli_fetch_assoc($res)) {
-    $id=$db['id'];
-    $name=$db['name'];
-    $money=$db['money'];
-
-    $HP=$db['HP'];
-    $attack=$db['attack'];
-    $point=$db['point'];
-
-echo "<input id='id' value='$id' hidden>";
-echo "<input id='name' value='$name' hidden>";
-echo "<input id='money' value='$money' hidden>";
-
-echo "<input id='HP' value='$HP' hidden>";
-echo "<input id='attack' value='$attack' hidden>";
-echo "<input id='point' value='$point' hidden>";
-}
-
-?>
-
     <div class="rectangle">
         <div class="rectangle2">
             <div class="rectangle2-1"></div>
