@@ -26,7 +26,7 @@ echo "さんのページです。";
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HP</title>
+    <title>トップページ</title>
     <style>
         .rectangle {
             position: relative;
@@ -209,6 +209,8 @@ while ($db = mysqli_fetch_assoc($res)) {
     $HP=$db['hp'];
     $attack=$db['power'];
     $point=$db['point'];
+    $hpp=$db['hppoint'];
+    $pp=$db['powerpoint'];
 
 echo "<input id='id' value='$id' hidden>";
 echo "<input id='name' value='$name' hidden>";
@@ -217,6 +219,9 @@ echo "<input id='money' value='$money' hidden>";
 echo "<input id='HP' value='$HP' hidden>";
 echo "<input id='attack' value='$attack' hidden>";
 echo "<input id='point' value='$point' hidden>";
+echo "<input id='hppoint' value='$hpp' hidden>";
+echo "<input id='powerpoint' value='$pp' hidden>";
+
 }
 
 ?>
@@ -226,24 +231,24 @@ echo "<input id='point' value='$point' hidden>";
             <div class="rectangle2-1"></div>
             <div class="rectangle2-2" id="name&money"></div>
         </div>
-        <button class="reset-btn">ステータスリセット&emsp;200G</button>
+        <button class="reset-btn" onclick="location.href='status_reset.php'">ステータスリセット&emsp;200G</button>
         <div class="point" id="points"></div>
         <div class="square-HP">
             <script type="text/javascript">
-                for (var i = 0; i < parseInt(document.getElementById("HP").value, 10); i++) {
+                for (var i = 0; i < parseInt(document.getElementById("hppoint").value, 10); i++) {
                     document.write('<div class="green-point"></div>');
                 }
             </script>
         </div>
         <div class="square-attack">
             <script type="text/javascript">
-                for (var i = 0; i < parseInt(document.getElementById("attack").value, 10); i++) {
+                for (var i = 0; i < parseInt(document.getElementById("powerpoint").value, 10); i++) {
                     document.write('<div class="red-point"></div>');
                 }
             </script>
         </div>
-        <button class="HP-btn">HP&emsp;50G</button>
-        <button class="attack-btn">攻撃&emsp;100G</button>
+        <button class="HP-btn" onclick="location.href='hp_add.php'">HP&emsp;50G</button>
+        <button class="attack-btn" onclick="location.href='power_add.php'">攻撃&emsp;100G</button>
         <img src="勇者.jpg" class="braver-img">
         <img src="shop.jpg" class="shop-img" onclick="location.href='page1.html'">
         <img src="mission.jpg" class="mission-img" onclick="location.href='page2.html'">
@@ -262,6 +267,7 @@ echo "<input id='point' value='$point' hidden>";
 <br><br>
 <button onclick="location.href='logout.php'">ログアウト</button>
 <button onclick="location.href='todo_tasks.php'">todoリスト</button>
+<button onclick="location.href='stage_select.php'">ステージセレクト</button>
 
 </body>
 
