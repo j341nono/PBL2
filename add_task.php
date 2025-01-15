@@ -20,7 +20,7 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $todolist = $_POST['todolist'];
-    $addgold = (int)$_POST['addgold'];
+    $addgold = 100;
     $startdate = $_POST['startdate'];
     $enddate = $_POST['enddate'];
 
@@ -73,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form action="add_task.php" method="post">
         <label for="todolist">やることリスト:</label><br>
-        <input type="text" id="todolist" name="todolist" required><br><br>
+        <input type="text" id="todolist" name="todolist" required>
 
-        <label for="addgold">追加ゴールド:</label><br>
-        <input type="number" id="addgold" name="addgold" value="0" required><br><br>
+        <!--<label for="addgold">追加ゴールド:</label><br>-->
+        <input type="hidden" id="addgold" name="addgold" value="100" required><br><br>
 
         <label for="startdate">開始日:</label><br>
         <input type="date" id="startdate" name="startdate" required><br><br>
