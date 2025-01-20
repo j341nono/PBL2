@@ -46,6 +46,8 @@ try {
     $dbh->commit();
 
     print 'ユーザーを追加しました<br/>';
+    print 'ユーザーIDは';
+    print htmlspecialchars($user_id, ENT_QUOTES, 'UTF-8') . '<br/>';
 } catch (Exception $e) {
     // エラー発生時にロールバック
     if ($dbh->inTransaction()) {
