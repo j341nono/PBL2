@@ -4,20 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>新規登録ページ</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf8f2; /* 明るいベージュ系背景 */
+            color: #333;
+        }
+
+        /* コンテナデザイン */
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 3px solid #ae642f; /* 薄いブラウン */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ヘッダー */
+        h2 {
+            text-align: center;
+            color: #5f370e; /* 落ち着いたブラウン */
+            margin-bottom: 20px;
+        }
+
+        /* フォームデザイン */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input[type="text"], 
+        input[type="password"] {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: #f7fafc; /* 明るい背景 */
+            color: #333;
+            width: 100%;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #ae642f; /* フォーカス時の枠色 */
+            box-shadow: 0 0 5px rgba(174, 100, 47, 0.5);
+        }
+
+        /* ボタンスタイル */
+        input[type="button"], 
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ae642f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover, 
+        input[type="submit"]:hover {
+            background-color: #944e25;
+        }
+
+        /* 戻るボタンとOKボタンの配置 */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            input[type="button"], 
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>新規登録フォーム</h2>
-    <form method="post" action="user_add_check.php">
-        ユーザー名を入力してください<br/>
-        <input type="text" name="name" style="width:200px"><br/>
-        パスワードを入力してください<br/>
-        <input type="password" name="pass" style="width:100px"><br/>
-        パスワードをもう一度入力してください<br/>
-        <input type="password" name="pass2" style="width:100px"><br/>
-        <br/>
-        <input type="button" onclick="history.back()" value="戻る">
-        <input type="submit" value="OK">
-    </form>
+    <div class="container">
+        <h2>新規登録フォーム</h2>
+        <form method="post" action="user_add_check.php">
+            <label for="name">ユーザー名を入力してください</label>
+            <input type="text" name="name" id="name" required>
 
+            <label for="pass">パスワードを入力してください</label>
+            <input type="password" name="pass" id="pass" required>
+
+            <label for="pass2">パスワードをもう一度入力してください</label>
+            <input type="password" name="pass2" id="pass2" required>
+
+            <div class="button-group">
+                <input type="button" onclick="history.back()" value="戻る">
+                <input type="submit" value="OK">
+            </div>
+        </form>
+    </div>
 </body>
 </html>
