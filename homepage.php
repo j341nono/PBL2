@@ -185,12 +185,29 @@ echo "さんのページです。";
         .stage-select-img {
             left: 416px;
         }
+        
+        .logout-btn {
+            position: absolute;
+            top: 10px; /* 上から10px */
+            right: 10px; /* 右から10px */            
+            padding: 10px 20px; /* ボタン内の余白 */
+            background-color: white; /* 背景色 */
+            color: black; /* 文字色 */
+            border: 1px solid #ccc; /* 枠線 */
+            border-radius: 4px; /* 角の丸み */
+            cursor: pointer; /* カーソルの変更 */
+            transition: background-color 0.3s; /* ホバー時のアニメーション */
+        }
+        .logout-btn:hover {
+            background-color: #f0f0f0; /* ホバー時の背景色 */
+        }
+
     </style>
 
 </head>
 
 <body>
-
+<button class="logout-btn" onclick="location.href='logout.php'">ログアウト</button>
 <?php
 // POSTデータが送信されている場合、変数に格納
 session_start();
