@@ -62,32 +62,130 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>タスク追加</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf8f2; /* 明るいベージュ系背景 */
+            color: #333;
+        }
+
+        /* コンテナデザイン */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 3px solid #ae642f; /* 薄いブラウン */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ヘッダー */
+        h1, p {
+            text-align: center;
+            color: #5f370e; /* 落ち着いたブラウン */
+        }
+
+        /* メッセージ */
+        .message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* フォーム */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #5f370e;
+        }
+
+        input[type="text"], 
+        input[type="date"] {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: #f7fafc; /* 明るい背景 */
+            color: #333;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #ae642f; /* フォーカス時の枠色 */
+            box-shadow: 0 0 5px rgba(174, 100, 47, 0.5);
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ae642f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #944e25;
+        }
+
+        /* リンクボタン */
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ae642f;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #944e25;
+        }
+    </style>
 </head>
 <body>
-    <h1>ようこそ ユーザーID: <?php echo htmlspecialchars($userID); ?> さん</h1>
-    <p><?php echo htmlspecialchars($name); ?>さん、タスクを追加してください。</p>
+    <div class="container">
+        <h1>ようこそ ユーザーID: <?php echo htmlspecialchars($userID); ?> さん</h1>
+        <p><?php echo htmlspecialchars($name); ?>さん、タスクを追加してください。</p>
 
-    <?php if ($message): ?>
-        <p style="color: green;"><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
+        <?php if ($message): ?>
+            <p class="message"><?php echo htmlspecialchars($message); ?></p>
+        <?php endif; ?>
 
-    <form action="add_task.php" method="post">
-        <label for="todolist">やることリスト:</label><br>
-        <input type="text" id="todolist" name="todolist" required>
+        <form action="add_task.php" method="post">
+            <label for="todolist">やることリスト:</label>
+            <input type="text" id="todolist" name="todolist" required>
 
-        <!--<label for="addgold">追加ゴールド:</label><br>-->
-        <input type="hidden" id="addgold" name="addgold" value="100" required><br><br>
+            <!--<label for="addgold">追加ゴールド:</label>-->
+            <input type="hidden" id="addgold" name="addgold" value="100" required>
 
-        <label for="startdate">開始日:</label><br>
-        <input type="date" id="startdate" name="startdate" required><br><br>
+            <label for="startdate">開始日:</label>
+            <input type="date" id="startdate" name="startdate" required>
 
-        <label for="enddate">終了日:</label><br>
-        <input type="date" id="enddate" name="enddate" required><br><br>
+            <label for="enddate">終了日:</label>
+            <input type="date" id="enddate" name="enddate" required>
 
-        <button type="submit">タスクを追加</button>
-    </form>
+            <button type="submit">タスクを追加</button>
+        </form>
 
-    <br>
-    <a href="todo_tasks.php">タスクリストへ</head></a>
+        <a class="link" href="todo_tasks.php">タスクリストへ戻る</a>
+    </div>
 </body>
 </html>
+
