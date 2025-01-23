@@ -4,18 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログインページ</title>
+    <style>
+        /* 全体のスタイル */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #fdf8f2; /* 明るいベージュ系背景 */
+            color: #333;
+        }
+
+        /* コンテナデザイン */
+        .container {
+            width: 90%;
+            max-width: 400px;
+            margin: 60px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            border: 3px solid #ae642f; /* 薄いブラウン */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ヘッダー */
+        h2 {
+            text-align: center;
+            color: #5f370e; /* 落ち着いたブラウン */
+            margin-bottom: 20px;
+        }
+
+        /* フォームデザイン */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #5f370e;
+        }
+
+        input[type="text"], 
+        input[type="password"] {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            background-color: #f7fafc; /* 明るい背景 */
+            color: #333;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #ae642f; /* フォーカス時の枠色 */
+            box-shadow: 0 0 5px rgba(174, 100, 47, 0.5);
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #ae642f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #944e25;
+        }
+
+        /* リンクボタン */
+        .link-button {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ae642f;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link-button:hover {
+            color: #944e25;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>ログインフォーム</h2>
-    <form action="login_check.php" method="POST">
-        <label for="userID">ユーザーID:</label>
-        <input type="text" id="userID" name="userID" required><br><br>
-        <label for="password">パスワード:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">ログイン</button>
-    </form>
+    <div class="container">
+        <h2>ログインフォーム</h2>
+        <form action="login_check.php" method="POST">
+            <label for="userID">ユーザーID:</label>
+            <input type="text" id="userID" name="userID" required>
 
-    <button type="button" onclick="location.href='user_add.html'">新規登録</button><br/>
+            <label for="password">パスワード:</label>
+            <input type="password" id="password" name="password" required>
 
+            <button type="submit">ログイン</button>
+        </form>
+
+        <a href="user_add.html" class="link-button">新規登録はこちら</a>
+    </div>
 </body>
 </html>
