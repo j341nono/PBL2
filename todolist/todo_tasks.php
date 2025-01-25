@@ -11,8 +11,8 @@ if (isset($_SESSION['login']) == false) {
 }
 
 // データベース接続情報
-$dsn = 'mysql:host=localhost;dbname=j431miyoP;charset=utf8';
-$db_user = 'j431miyo';
+$dsn = 'mysql:host=localhost;dbname=j341nonoP;charset=utf8';
+$db_user = 'j341nono';
 $db_password = '';
 
 try {
@@ -22,17 +22,21 @@ try {
 
     // ソート条件を取得
     $orderBy = "taskID"; // デフォルトのソートはtaskID
-    if (isset($_GET['sort']) && in_array($_GET['sort'], ['taskID', 'startdate', 'enddate'])) {
+    if (isset($_GET['sort']) && in_array($_GET['sort'], ['taskID', 'startdate', 'enddate', 'period'])) {
         $orderBy = $_GET['sort'];
     }
 
-    // ユーザーのタスクリストを取得（ソート条件付き）
-    $sql = "SELECT taskID, todolist, addgold, startdate, enddate 
+    // 表示するperiodを取得（デフォルトはdaily）
+    $currentPeriod = isset($_GET['period']) ? $_GET['period'] : 'daily';
+
+    // ユーザーのタスクリストを取得（ソート条件とperiod付き）
+    $sql = "SELECT taskID, todolist, addgold, startdate, enddate, period
             FROM UserTasks2
-            WHERE userID = :userID
+            WHERE userID = :userID AND period = :period
             ORDER BY $orderBy";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->bindParam(':period', $currentPeriod);
     $stmt->execute();
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,78 +51,161 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($name); ?>さんのタスクリスト</title>
+    <title>Corporate Task Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Arial', sans-serif;
         }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
+        .dashboard-container {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
         }
-        th {
-            background-color: #f4f4f4;
+        .task-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
-        .sort-form {
-            margin-bottom: 15px;
+        .nav-tabs .nav-link {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #3498db;
+            color: white;
+        }
+        .table-hover tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+        .btn-action {
+            margin-right: 10px;
+        }
+        .task-action-icons {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-    <h1>ようこそ ユーザーID: <?php echo htmlspecialchars($userID); ?> さん</h1>
-    <p><?php echo htmlspecialchars($name); ?>さんのページです。</p>
+    <div class="container dashboard-container">
+        <div class="task-header text-center">
+            <h1>Task Management Dashboard</h1>
+            <p>Welcome, <?php echo htmlspecialchars($name); ?></p>
+        </div>
 
-    <h2>タスクリスト</h2>
+        <!-- Period Tabs -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a href="?period=daily" class="nav-link <?php echo $currentPeriod === 'daily' ? 'active' : ''; ?>">Daily Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a href="?period=weekly" class="nav-link <?php echo $currentPeriod === 'weekly' ? 'active' : ''; ?>">Weekly Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a href="?period=monthly" class="nav-link <?php echo $currentPeriod === 'monthly' ? 'active' : ''; ?>">Monthly Tasks</a>
+            </li>
+        </ul>
 
-    <!-- ソートフォーム -->
-    <form method="get" class="sort-form">
-        <label for="sort">ソート方法:</label>
-        <select name="sort" id="sort" onchange="this.form.submit()">
-            <option value="taskID" <?php if ($orderBy === 'taskID') echo 'selected'; ?>>タスクID</option>
-            <option value="startdate" <?php if ($orderBy === 'startdate') echo 'selected'; ?>>開始日</option>
-            <option value="enddate" <?php if ($orderBy === 'enddate') echo 'selected'; ?>>終了日</option>
-        </select>
-    </form>
-
-    <?php if (count($tasks) > 0): ?>
-        <form method="post">
-            <table>
-                <thead>
-                    <tr>
-                        <th>選択</th>
-                        <th>タスクID</th>
-                        <th>やることリスト</th>
-                        <th>追加ゴールド</th>
-                        <th>開始日</th>
-                        <th>終了日</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($tasks as $task): ?>
-                        <tr>
-                            <td><input type="checkbox" name="taskIDs[]" value="<?php echo htmlspecialchars($task['taskID']); ?>"></td>
-                            <td><?php echo htmlspecialchars($task['taskID']); ?></td>
-                            <td><?php echo htmlspecialchars($task['todolist']); ?></td>
-                            <td><?php echo htmlspecialchars($task['addgold']); ?></td>
-                            <td><?php echo htmlspecialchars($task['startdate']); ?></td>
-                            <td><?php echo htmlspecialchars($task['enddate']); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-            <br>
-            <button type="submit" formaction="delete_task.php">選択したタスクを削除</button>
-                <button type="submit" formaction="add_gold.php">選択したタスクを完了</button>
+        <!-- Sort Form -->
+        <form method="get" class="mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="hidden" name="period" value="<?php echo htmlspecialchars($currentPeriod); ?>">
+                    <select name="sort" class="form-select" onchange="this.form.submit()">
+                        <option value="taskID" <?php if ($orderBy === 'taskID') echo 'selected'; ?>>Sort by Task ID</option>
+                        <option value="startdate" <?php if ($orderBy === 'startdate') echo 'selected'; ?>>Sort by Start Date</option>
+                        <option value="enddate" <?php if ($orderBy === 'enddate') echo 'selected'; ?>>Sort by End Date</option>
+                    </select>
+                </div>
+            </div>
         </form>
-    <?php else: ?>
-        <p>現在、タスクはありません。</p>
-    <?php endif; ?>
 
-    <button onclick="location.href='add_task.php'">タスクを追加する</button>
-    <br>
-    <br>
-    <button onclick="location.href='../homepage/homepage.php'">トップページへ</button>
+        <!-- Task Table -->
+        <?php if (count($tasks) > 0): ?>
+            <form method="post" id="taskForm">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input" id="selectAll"></th>
+                                <th>Task Description</th>
+                                <th>Gold Reward</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($tasks as $task): ?>
+                                <tr>
+                                    <td><input type="checkbox" name="taskIDs[]" value="<?php echo htmlspecialchars($task['taskID']); ?>" class="form-check-input"></td>
+                                    <td><?php echo htmlspecialchars($task['todolist']); ?></td>
+                                    <td><?php echo htmlspecialchars($task['addgold']); ?></td>
+                                    <td><?php echo htmlspecialchars($task['startdate']); ?></td>
+                                    <td><?php echo htmlspecialchars($task['enddate']); ?></td>
+                                    <td class="task-action-icons">
+                                        <button type="button" data-action="delete" data-task-id="<?php echo htmlspecialchars($task['taskID']); ?>" class="btn btn-sm btn-danger btn-action task-action" title="Delete Task">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                        <button type="button" data-action="complete" data-task-id="<?php echo htmlspecialchars($task['taskID']); ?>" class="btn btn-sm btn-success btn-action task-action" title="Complete Task">
+                                            <i class="fas fa-check-circle"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-info">No tasks found for this period.</div>
+        <?php endif; ?>
+
+        <!-- Action Buttons -->
+        <div class="mt-4 text-center">
+            <a href="add_task.php" class="btn btn-primary me-2">
+                <i class="fas fa-plus-circle me-2"></i>Add New Task
+            </a>
+            <a href="../homepage/homepage.php" class="btn btn-secondary">
+                <i class="fas fa-home me-2"></i>Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('selectAll').addEventListener('change', function(e) {
+            var checkboxes = document.querySelectorAll('input[name="taskIDs[]"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = e.target.checked;
+            });
+        });
+
+        // New script to handle action buttons
+        document.querySelectorAll('.task-action').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const taskId = this.getAttribute('data-task-id');
+                const action = this.getAttribute('data-action');
+                const checkbox = this.closest('tr').querySelector('input[type="checkbox"]');
+                
+                // Check the checkbox for this specific task
+                checkbox.checked = true;
+                
+                // Set the form action based on the button clicked
+                const form = document.getElementById('taskForm');
+                form.action = action === 'delete' ? 'delete_task.php' : 'add_gold.php';
+                
+                // Submit the form
+                form.submit();
+            });
+        });
+    </script>
 </body>
 </html>

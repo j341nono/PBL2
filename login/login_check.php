@@ -1,8 +1,8 @@
 <?php
 // データベース接続設定
 $host = 'localhost'; // ホスト名
-$dbname = 'j431miyoP'; // データベース名
-$username = 'j431miyo'; // データベースユーザー名
+$dbname = 'j341nonoP'; // データベース名
+$username = 'j341nono'; // データベースユーザー名
 $password = ''; // データベースパスワード
 
 try {
@@ -18,7 +18,8 @@ $userID = $_POST['userID'] ?? '';
 $password_input = $_POST['password'] ?? '';
 
 // データベースからユーザー情報を取得
-$sql = "SELECT * FROM Users2 WHERE userID = :userID";
+// Users2 --> Users
+$sql = "SELECT * FROM Users WHERE userID = :userID";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
 $stmt->execute();

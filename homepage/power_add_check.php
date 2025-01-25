@@ -14,8 +14,8 @@ else
 }
 
 try {
-    $dsn = 'mysql:host=localhost;dbname=j431miyoP;charset=utf8';
-    $user = 'j431miyo';
+    $dsn = 'mysql:host=localhost;dbname=j341nonoP;charset=utf8';
+    $user = 'j341nono';
     $password = '';
     $dbh = new PDO($dsn, $user, $password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

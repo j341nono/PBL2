@@ -13,8 +13,8 @@ try {
     $user_pass = $_POST['pass'];
 
     // データベース接続設定
-    $dsn = 'mysql:dbname=j431miyoP;host=localhost;charset=utf8';
-    $user = 'j431miyo';
+    $dsn = 'mysql:dbname=j341nonoP;host=localhost;charset=utf8';
+    $user = 'j341nono';
     $password = '';
 
     // データベースに接続
@@ -25,7 +25,8 @@ try {
     $dbh->beginTransaction();
 
     // Usersテーブルにデータを追加
-    $sql_user = 'INSERT INTO Users2 (name, password) VALUES (?, ?)';
+    // Users2 --> Users
+    $sql_user = 'INSERT INTO Users (name, password) VALUES (?, ?)';
     $stmt_user = $dbh->prepare($sql_user);
 
     // ユーザーデータをバインドして実行

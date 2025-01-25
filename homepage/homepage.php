@@ -183,8 +183,8 @@ else
     $name=$_SESSION['name'];
 }
 
-$con = mysqli_connect('localhost', 'j431miyo', '') or die("接続失敗");
-mysqli_select_db($con, 'j431miyoP') or die("選択失敗");
+$con = mysqli_connect('localhost', 'j341nono', '') or die("接続失敗");
+mysqli_select_db($con, 'j341nonoP') or die("選択失敗");
 mysqli_query($con, 'SET NAMES utf8');
 
 $sql = "SELECT * FROM status2 WHERE userID = '$userID'";

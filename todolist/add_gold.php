@@ -12,8 +12,8 @@ if (isset($_SESSION['login']) == false) {
 
 
 // データベース接続情報
-$dsn = 'mysql:host=localhost;dbname=j431miyoP;charset=utf8';
-$db_user = 'j431miyo';
+$dsn = 'mysql:host=localhost;dbname=j341nonoP;charset=utf8';
+$db_user = 'j341nono';
 $db_password = '';
 
 try {
