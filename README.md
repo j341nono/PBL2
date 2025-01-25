@@ -4,7 +4,14 @@
 
 <!-- シールド一覧 -->
 <p style="display: inline">
-    <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1"> <img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white"> <img src="https://img.shields.io/badge/Plotly-%233F4F75.svg?style=for-the-badge&logo=plotly&logoColor=white"> <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"> <img src="https://img.shields.io/badge/sqlite3-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white"> <img src="https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white">
+    <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white"> 
+    <img src="https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white"> 
+    <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1"> 
+    <!--
+    <img src="https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white"> 
+    -->
+    <img src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white"> 
+    <img src="https://img.shields.io/badge/-MySQL-4479A1.svg?logo=mysql&style=for-the-badge&logoColor=white">
 </p>
 
 ## 目次
@@ -13,19 +20,7 @@
 2. [環境](#環境)
 3. [ディレクトリ構成](#ディレクトリ構成)
 4. [開発環境構築](#開発環境構築)
-5. [トラブルシューティング](#トラブルシューティング)
 
-<!-- READMEの作成方法のドキュメントのリンク -->
-<br />
-<div align="right">
-    <a href="READMEの作成方法のリンク"><strong>READMEの作成方法 »</strong></a>
-</div>
-<br />
-<!-- Dockerfileのドキュメントのリンク -->
-<div align="right">
-    <a href="Dockerfileの詳細リンク"><strong>Dockerfileの詳細 »</strong></a>
-</div>
-<br />
 <!-- プロジェクト名を記載 -->
 
 ## プロジェクト名
@@ -55,18 +50,12 @@
 
 | 言語・フレームワーク  | バージョン |
 | --------------------- | ---------- |
-| Python                | 3.11.4     |
-| Django                | 4.2.1      |
-| Django Rest Framework | 3.14.0     |
 | MySQL                 | 8.0        |
-| Node.js               | 16.17.0    |
-| React                 | 18.2.0     |
-| Next.js               | 13.4.6     |
-| Terraform             | 1.3.6      |
 
+<!--
 その他のパッケージのバージョンは pyproject.toml と package.json を参照してください
-
-<p align="right">(<a href="#top">トップへ<-/a>)</p>
+-->
+<p align="right"><a href="#top">トップへ</a></p>
 
 ## ディレクトリ構成
 
