@@ -96,7 +96,7 @@ try {
 <body>
     <div class="container dashboard-container">
         <div class="task-header text-center">
-            <h1>Task Management Dashboard　<img id="animatedImage" src="animation/hero_left.PNG" style="width: 100px; height: 100px;"></h1>
+            <h1>Task Management Dashboard　<img id="animatedImage" src="./../game/hero_left.PNG" style="width: 100px; height: 100px;"></h1>
             <!-- <h3>Welcome, <?php echo htmlspecialchars($name); ?></h3> -->
         </div>
 
@@ -180,28 +180,8 @@ try {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="animation.js" defer></script>
     <script>
-        // 以下はアニメーション
-        const images = [
-            'animation/hero_left.PNG', 
-            'animation/hero_straight.PNG', 
-            'animation/hero_right.PNG'
-        ];
-        let currentIndex = 0;
-        const imageElement = document.getElementById('animatedImage');
-        function changeImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            imageElement.src = images[currentIndex];
-        }
-        // Change image every 100 milliseconds (0.1 seconds)
-        setInterval(changeImage, 150);
-        document.getElementById('selectAll').addEventListener('change', function(e) {
-            var checkboxes = document.querySelectorAll('input[name="taskIDs[]"]');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = e.target.checked;
-            });
-        });
-
         // New script to handle action buttons
         document.querySelectorAll('.task-action').forEach(function(button) {
             button.addEventListener('click', function() {
