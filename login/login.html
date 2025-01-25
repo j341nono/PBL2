@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログインページ</title>
+</head>
+<body>
+    <h2>ログインフォーム</h2>
+    <form action="login_check.php" method="POST">
+        <label for="userID">ユーザーID:</label>
+        <input type="text" id="userID" name="userID" required><br><br>
+        <label for="password">パスワード:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        <button type="submit">ログイン</button>
+    </form>
+
+    <button onclick="location.href='../user_add/user_add.html'">新規登録</button><br>
+
+</body>
+</html>

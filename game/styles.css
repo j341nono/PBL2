@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+
+canvas {
+    border: 1px solid white;
+}
+
+#game-container{
+    position: relative;
+    width: 320px;
+    height: 320px;
+}
