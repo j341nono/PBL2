@@ -14,6 +14,8 @@ else
 }
 
 try {
+    $stage_num = $_POST['stage_num'];
+
     $dsn = 'mysql:host=localhost;dbname=j431miyoP;charset=utf8';
     $user = 'j431miyo';
     $password = '';
@@ -31,15 +33,15 @@ try {
     if ($result) {
         // item1_use +1
         if($result['item1_use'] == 0){
-            $newItem1 = 1;
+            $newItem1_use = 1;
         } else {
-            $newItem1 = 0;
+            $newItem1_use = 0;
         }
         
         // 更新処理
-        $sql = 'UPDATE status2 SET item1_use = :item1 WHERE userID = :userID';
+        $sql = 'UPDATE status2 SET item1_use = :item1_use WHERE userID = :userID';
         $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':item1_use', $newItem1, PDO::PARAM_INT);
+        $stmt->bindValue(':item1_use', $newItem1_use, PDO::PARAM_INT);
         $stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
         $stmt->execute();
         

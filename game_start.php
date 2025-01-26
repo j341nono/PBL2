@@ -132,7 +132,7 @@ else
         <?php
         //-----ステージ画像はココで管理
         $stage_name = ['のはら.jpg', 'すなはま.jpg', 'さばく.jpg', 'ゆきぐに.jpg', 'ぼち.jpg', 'まおうじょう.jpg'];
-        $stage_num = $_POST['stage'];
+        $stage_num = $_POST['stage_num'];
 
         /*$idはページ間で渡していること前提で定義*/
         //-----sql
@@ -191,7 +191,7 @@ else
         
         <script type="text/javascript">
         if (parseInt(document.getElementById("item1_use").value, 10) == 0) {
-            document.write('<img src="黒薬草.jpg" class="item1-img" onclick="location.href=\'item1_use_change.php\'">');
+            document.write('<form id="'.$stage_num.'" action="item1_use_change.php" method="POST"><input type="hidden" name="stage_num" value="'.$stage_num.'"><button type="submit" form="'.$stage_num.'"><img src="黒薬草.jpg" class="item1-img"></button></form>');
         } else {
             document.write('<img src="../shop/薬草.jpg" class="item1-img" onclick="location.href=\'item1_use_change.php\'">');
         }

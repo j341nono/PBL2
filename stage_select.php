@@ -1,3 +1,21 @@
+<?php
+session_start();
+session_regenerate_id(true);
+if(isset($_SESSION['login'])==false)
+{
+    print 'ログインされていません<br/>';
+    print '<a href="../login/login.html">ログイン画面へ</a>';
+    exit();
+}
+else
+{
+    $userID=$_SESSION['userID'];
+    $name=$_SESSION['name'];
+
+    echo "<input id='userID' value='$userID' hidden>";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -34,7 +52,7 @@
             position: absolute;
             width: 200px;
             height: 60px;
-            border: 1px solid black;
+            //border: 1px solid black;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
         }
@@ -108,45 +126,45 @@
         .close-btn:hover {
             background-color: rgb(230, 230, 230);
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 
 </head>
 <body>
     <div class="square">
       <div class="tytle">ステージ選択</div>
-      <a href="HP.php" class="close-btn">x</a>
+      <a href="../homepage/homepage.php" class="close-btn">x</a>
 
         <?php
-        //statusテーブルから取得
-        /*$idはページ間で渡していること前提で定義*/
-        //-----idの渡し方は後で調整
-        $id = 2;
-
-        //-----sql
-        $con = mysqli_connect('localhost','j295toku','') or die("接続失敗");
-         mysqli_select_db($con, 'j295toku7') or die("選択失敗");
-         mysqli_query($con, 'SET NAMES utf8');
-        $sql = "SELECT * FROM status WHERE userID = $id";
+        
+        session_start();
+        $con = mysqli_connect('localhost','j431miyo','') or die("接続失敗");
+        mysqli_select_db($con, 'j431miyoP') or die("選択失敗");
+        mysqli_query($con, 'SET NAMES utf8');
+        $sql = "SELECT * FROM status2 WHERE userID = '$userID'";
         $res = mysqli_query($con, $sql) or die("エラー");
-        $db = mysqli_fetch_assoc($res);
-        $stage_idx = $db['stage'];
+        
+        while ($db = mysqli_fetch_assoc($res)) {
+            $stage_idx=$db['stage'];
+        }
 
         //-----ステージ画像はココで管理
-        $stage_name = ['field.jpg', 'beach.jpg', 'desert.jpg', 'snow.jpg', 'cemetery.jpg', 'demon.jpg'];
+        $stage_name = ['野原.jpg', '砂浜.jpg', '砂漠.jpg', '雪国.jpg', '墓地.jpg', '魔王城.jpg'];
 
-        //$stage_idx = 6;
-        for ($i = 1; $i <= $stage_idx; $i++) {
-            echo '<div class="img'.$i.'">';
-            echo '<form id="'.$i.'" action="game_start.php" method="POST"><input type="hidden" name="stage" value="'.$i.'"></form>';
-            echo '<button type="submit" form="'.$i.'"><img src="'.$stage_name[$i - 1].'"></button>';
-            echo '<p>St'.$i.'</p>';
+        //$stage_idx =< 6;
+        for ($stage_num = 1; $stage_num <= $stage_idx; $stage_num++) {
+            echo '<div class="img'.$stage_num.'">';
+            echo '<form id="'.$stage_num.'" action="game_start.php" method="POST"><input type="hidden" name="stage_num" value="'.$stage_num.'">';
+            echo '<button type="submit" form="'.$stage_num.'"><img src="'.$stage_name[$stage_num - 1].'"></button></form>';
+            echo '<p>St'.$stage_num.'</p>';
             echo '</div>';
         }
         ?>
 
     </div>
-    <script type="text/javascript">
-    </script>
 
 </body>
 

@@ -31,7 +31,7 @@ echo "さんのページです。";
     <body>
         
         <?php
-        
+        $stage_num = $_POST['stage_num'];
         // POSTデータが送信されている場合、変数に格納      
         session_start();
         $con = mysqli_connect('localhost','j431miyo','') or die("接続失敗");
@@ -58,8 +58,10 @@ echo "さんのページです。";
         }
         </script>
         
-        <button onclick="location.href='item1_use_change_check.php'">YES</button>
-        <button onclick="location.href='../stage/game_start.php'">戻る</button>
+        <form id="'.$stage_num.'" action="game_start.php" method="POST"><input type="hidden" name="stage_num" value="'.$stage_num.'">
+        <button type="submit" form="'.$stage_num.'" onclick="location.href='item1_use_change_check.php'">戻る</button>
+        <button type="submit" form="'.$stage_num.'" onclick="location.href='game_start.php'">戻る</button>
+        </form>
 
     </body>
 </html>
