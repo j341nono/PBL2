@@ -34,21 +34,11 @@
 
 愛媛大学工学部工学科 応用情報工学コースのPBL演習Ⅱ の成果物
 
-<!-- プロジェクトの概要を記載 -->
-  <p align="left">
-    <br />
-    <!-- プロジェクト詳細にBacklogのWikiのリンク -->
-    <a href="Backlogのwikiリンク"><strong>プロジェクト詳細 »</strong></a>
-    <br />
-    <br />
-
-<p align="right">(<a href="#top">トップへ</a>)</p>
-
 ## 利用
 
 以下からログインする。
 
-https://sshg.cs.ehime-u.ac.jp/~j341nono/pbl2/login/login.html
+<a href="https://sshg.cs.ehime-u.ac.jp/~j431miyo/pbl2/login/login.html">ここからログイン</a>
 
 ## 環境
 
